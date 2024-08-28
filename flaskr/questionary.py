@@ -3,18 +3,15 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from flaskr.auth import login_required
-from flaskr.db import get_db
 
-bp = Blueprint('questionary', __name__)
+
+bp = Blueprint('questionary', __name__, url_prefix='/questionary')
 
 @bp.route('/q1')
-def index():
-    db = get_db()
-    posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
-    ).fetchall()
-    return render_template('blog/index.html', posts=posts)
+def q1():
+    return render_template('questionary/q1.html')
+
+@bp.route('/q2')
+def q2():
+    return render_template('questionary/q2.html')
 
